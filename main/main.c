@@ -29,12 +29,6 @@
 
 static const char *TAG = "MAIN";
 
-#if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0))
-#define sntp_setoperatingmode esp_sntp_setoperatingmode
-#define sntp_setservername esp_sntp_setservername
-#define sntp_init esp_sntp_init
-#endif
-
 MessageBufferHandle_t xMessageBufferRx;
 MessageBufferHandle_t xMessageBufferTx;
 
@@ -168,12 +162,12 @@ void time_sync_notification_cb(struct timeval *tv)
 static void initialize_sntp(void)
 {
 	ESP_LOGI(TAG, "Initializing SNTP");
-	sntp_setoperatingmode(SNTP_OPMODE_POLL);
-	//sntp_setservername(0, "pool.ntp.org");
+	esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+	//esp_sntp_setservername(0, "pool.ntp.org");
 	ESP_LOGI(TAG, "Your NTP Server is %s", CONFIG_NTP_SERVER);
-	sntp_setservername(0, CONFIG_NTP_SERVER);
+	esp_sntp_setservername(0, CONFIG_NTP_SERVER);
 	sntp_set_time_sync_notification_cb(time_sync_notification_cb);
-	sntp_init();
+	esp_sntp_init();
 }
 
 static esp_err_t obtain_time(void)

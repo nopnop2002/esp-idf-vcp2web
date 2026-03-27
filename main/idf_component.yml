@@ -1,10 +1,16 @@
 ## IDF Component Manager Manifest File
 dependencies:
   Molorius/esp32-websocket:
-    git: https://github.com/Molorius/esp32-websocket
-  mdns: "^1.0.3"
+    git: https://github.com/nopnop2002/esp32-websocket
+  espressif/mdns:
+    version: "^1.0.3"
+    rules:
+      - if: "idf_version >=5.0"
+  espressif/cjson:
+    version: "^1.7.0"
+    rules:
+      - if: "idf_version >=6.0"
   usb_host_ch34x_vcp: "^2"
   usb_host_cp210x_vcp: "^2"
   usb_host_ftdi_vcp: "^2"
   usb_host_vcp: "^1"
-  idf: ">=5.1.0"
